@@ -78,7 +78,7 @@ impl BobbleHead {
         self.velocity_x += force_x * 0.5;
         self.velocity_y += force_y * 0.5;
         // Stronger initial rotation kick
-        self.rotation_velocity = (force_x * 0.1).max(-1.0).min(1.0);
+        self.rotation_velocity = (force_x * 0.1).clamp(-1.0, 1.0);
     }
 }
 
@@ -99,7 +99,7 @@ mod qobject {
 
         include!("cxx-qt-lib/qhash.h");
         type QHash_i32_QByteArray = cxx_qt_lib::QHash<cxx_qt_lib::QHashPair_i32_QByteArray>;
-        
+
         include!("cxx-qt-lib/qpoint.h");
         type QPointF = cxx_qt_lib::QPointF;
 
@@ -136,7 +136,13 @@ mod qobject {
         fn roleNames(self: &BobbleHeadModel) -> QHash_i32_QByteArray;
 
         #[qinvokable]
-        fn add_bobble_head(self: Pin<&mut BobbleHeadModel>, x: f64, y: f64, radius: f64, color: &QString);
+        fn add_bobble_head(
+            self: Pin<&mut BobbleHeadModel>,
+            x: f64,
+            y: f64,
+            radius: f64,
+            color: &QString,
+        );
 
         #[qinvokable]
         fn apply_force(self: Pin<&mut BobbleHeadModel>, index: i32, force_x: f64, force_y: f64);
@@ -149,7 +155,12 @@ mod qobject {
 
         #[inherit]
         #[rust_name = "begin_insert_rows"]
-        fn beginInsertRows(self: Pin<&mut BobbleHeadModel>, parent: &QModelIndex, first: i32, last: i32);
+        fn beginInsertRows(
+            self: Pin<&mut BobbleHeadModel>,
+            parent: &QModelIndex,
+            first: i32,
+            last: i32,
+        );
 
         #[inherit]
         #[rust_name = "end_insert_rows"]
@@ -161,7 +172,12 @@ mod qobject {
 
         #[inherit]
         #[rust_name = "data_changed"]
-        fn dataChanged(self: Pin<&mut BobbleHeadModel>, top_left: &QModelIndex, bottom_right: &QModelIndex, roles: &QVector_i32);
+        fn dataChanged(
+            self: Pin<&mut BobbleHeadModel>,
+            top_left: &QModelIndex,
+            bottom_right: &QModelIndex,
+            roles: &QVector_i32,
+        );
     }
 }
 
@@ -226,29 +242,41 @@ impl BobbleHeadModel {
         let mut roles = QHash_i32_QByteArray::default();
         roles.insert(BobbleRoles::X.repr, cxx_qt_lib::QByteArray::from("x"));
         roles.insert(BobbleRoles::Y.repr, cxx_qt_lib::QByteArray::from("y"));
-        roles.insert(BobbleRoles::RestX.repr, cxx_qt_lib::QByteArray::from("restX"));
-        roles.insert(BobbleRoles::RestY.repr, cxx_qt_lib::QByteArray::from("restY"));
-        roles.insert(BobbleRoles::Rotation.repr, cxx_qt_lib::QByteArray::from("rotation"));
-        roles.insert(BobbleRoles::HeadRadius.repr, cxx_qt_lib::QByteArray::from("headRadius"));
-        roles.insert(BobbleRoles::Color.repr, cxx_qt_lib::QByteArray::from("color"));
+        roles.insert(
+            BobbleRoles::RestX.repr,
+            cxx_qt_lib::QByteArray::from("restX"),
+        );
+        roles.insert(
+            BobbleRoles::RestY.repr,
+            cxx_qt_lib::QByteArray::from("restY"),
+        );
+        roles.insert(
+            BobbleRoles::Rotation.repr,
+            cxx_qt_lib::QByteArray::from("rotation"),
+        );
+        roles.insert(
+            BobbleRoles::HeadRadius.repr,
+            cxx_qt_lib::QByteArray::from("headRadius"),
+        );
+        roles.insert(
+            BobbleRoles::Color.repr,
+            cxx_qt_lib::QByteArray::from("color"),
+        );
         roles
     }
 
     fn add_bobble_head(mut self: Pin<&mut Self>, x: f64, y: f64, radius: f64, color: &QString) {
         let row = self.bobble_heads.len();
-        self.as_mut().begin_insert_rows(
-            &QModelIndex::default(),
-            row as i32,
-            row as i32,
-        );
-        
+        self.as_mut()
+            .begin_insert_rows(&QModelIndex::default(), row as i32, row as i32);
+
         self.as_mut().rust_mut().bobble_heads.push(BobbleHead::new(
             x,
             y,
             radius,
             &color.to_string(),
         ));
-        
+
         self.as_mut().end_insert_rows();
     }
 
@@ -257,7 +285,8 @@ impl BobbleHeadModel {
             self.as_mut().rust_mut().bobble_heads[index as usize].apply_force(force_x, force_y);
             let model_index = self.as_ref().create_index(index, 0);
             let roles = QVector_i32::default();
-            self.as_mut().data_changed(&model_index, &model_index, &roles);
+            self.as_mut()
+                .data_changed(&model_index, &model_index, &roles);
         }
     }
 
@@ -270,7 +299,8 @@ impl BobbleHeadModel {
             head.velocity_y = 0.0;
             let model_index = self.as_ref().create_index(index, 0);
             let roles = QVector_i32::default();
-            self.as_mut().data_changed(&model_index, &model_index, &roles);
+            self.as_mut()
+                .data_changed(&model_index, &model_index, &roles);
         }
     }
 
@@ -279,26 +309,22 @@ impl BobbleHeadModel {
             .duration_since(UNIX_EPOCH)
             .unwrap()
             .as_millis() as u64;
-        
+
         // Limit delta time to prevent physics glitches
         let delta = ((now - self.rust().last_update) as f64).min(100.0) / 1000.0;
-        
+
         if delta > 0.0 {
             for i in 0..self.rust().bobble_heads.len() {
                 self.as_mut().rust_mut().bobble_heads[i].update(delta);
                 let model_index = self.as_ref().create_index(i as i32, 0);
                 let roles = QVector_i32::default();
-                self.as_mut().data_changed(
-                    &model_index,
-                    &model_index,
-                    &roles,
-                );
+                self.as_mut()
+                    .data_changed(&model_index, &model_index, &roles);
             }
-            
+
             self.as_mut().rust_mut().last_update = now;
         }
     }
 }
 
 // TodoList code removed
-
