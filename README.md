@@ -7,5 +7,6 @@ I first watch this video and followed along how to even get started with running
 
 # Sources
 
-[Source for Ferris the crab svg](https://rustacean.net/)
-[Source for Kitty SVG](https://www.svgrepo.com/svg/454286/cat-halloween-kitty-2)
+- [Source for Ferris The Crab svg](https://rustacean.net/)
+- [Source for Kitty SVG](https://www.svgrepo.com/svg/454286/cat-halloween-kitty-2)
+- [Source for Baseball Player SVG](https://www.svgrepo.com/svg/106207/baseball-player)
