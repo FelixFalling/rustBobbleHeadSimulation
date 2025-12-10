@@ -3,7 +3,6 @@ mod bobbling;
 use cxx_qt_lib::{QGuiApplication, QQmlApplicationEngine, QUrl};
 
 fn main() {
-
     //Making new table??
     let mut app = QGuiApplication::new();
     let mut engine = QQmlApplicationEngine::new();

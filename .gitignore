@@ -24,3 +24,22 @@ target
 # Added by cargo
 
 /target
+
+# Qt Creator
+*.user
+*.user.*
+CMakeLists.txt.user
+.qtc_clangd/
+.qtcreator/
+
+# CMake
+build/
+cmake-build-*/
+CMakeFiles/
+CMakeCache.txt
+cmake_install.cmake
+*.cmake
+
+# QML
+*.qmlc
+*.jsc
