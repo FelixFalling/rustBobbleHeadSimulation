@@ -1,0 +1,6 @@
+<RCC>
+    <qresource prefix="/">
+        <file>images/rustacean-body.svg</file>
+        <file>images/rustacean-claws.svg</file>
+    </qresource>
+</RCC>

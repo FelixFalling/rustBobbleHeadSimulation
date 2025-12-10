@@ -7,6 +7,7 @@ fn main() {
             qml_files: &["qml/main.qml"],
             ..Default::default()
         })
+        .qrc("resources.qrc")
         .qt_module("Network")
         .build();
 }

@@ -155,6 +155,9 @@ mod qobject {
         fn set_bobble_head_position(self: Pin<&mut BobbleHeadModel>, index: i32, x: f64, y: f64);
 
         #[qinvokable]
+        fn set_bobble_head_rest_position(self: Pin<&mut BobbleHeadModel>, index: i32, x: f64, y: f64);
+
+        #[qinvokable]
         fn update_physics(self: Pin<&mut BobbleHeadModel>, delta_time: f64);
 
         #[qinvokable]
@@ -320,6 +323,30 @@ impl BobbleHeadModel {
             head.y = y;
             head.velocity_x = 0.0;
             head.velocity_y = 0.0;
+            let model_index = self.as_ref().create_index(index, 0);
+            let roles = QVector_i32::default();
+            self.as_mut()
+                .data_changed(&model_index, &model_index, &roles);
+        }
+    }
+
+    fn set_bobble_head_rest_position(mut self: Pin<&mut Self>, index: i32, x: f64, y: f64) {
+        if index >= 0 && (index as usize) < self.bobble_heads.len() {
+            let head = &mut self.as_mut().rust_mut().bobble_heads[index as usize];
+            head.rest_x = x;
+            head.rest_y = y;
+            // Also update current position to prevent extreme springing when dragging the base
+            // But maybe we want some springing? Let's keep it simple and move both for "placing"
+            // actually, if I drag the base, the head should probably follow.
+            // If I don't update x/y, the head will stay put and the spring will stretch.
+            // Let's update x/y partially or fully to make it feel like we are moving the whole object.
+            // If I update x/y to be relative to the new rest position as they were to the old rest position?
+            // dx = x - old_rest_x
+            // new_x = new_rest_x + dx
+            let dx = head.x - head.rest_x; // Wait, head.rest_x is already updated? No, I just updated it.
+            // I need the old rest_x.
+            // Let's just update rest_x/y. The user can enjoy the physics.
+            
             let model_index = self.as_ref().create_index(index, 0);
             let roles = QVector_i32::default();
             self.as_mut()

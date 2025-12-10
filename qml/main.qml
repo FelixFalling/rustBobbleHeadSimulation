@@ -104,9 +104,9 @@ ApplicationWindow {
                 visible: delegateRoot.controlsVisible
                 z: 100
                 x: model.restX - width / 2
-                y: model.restY - 80 // Moved closer
+                y: model.restY - 90 
                 width: controlsRow.width + 20
-                height: controlsRow.height + 20
+                height: controlsRow.height + 30
 
                 Rectangle {
                     anchors.fill: parent
@@ -114,8 +114,36 @@ ApplicationWindow {
                     radius: 5
                 }
 
+                // Drag Handle
+                Rectangle {
+                    id: dragHandle
+                    width: parent.width
+                    height: 20
+                    color: "#AA000000"
+                    radius: 5
+                    anchors.top: parent.top
+                    
+                    Text {
+                        anchors.centerIn: parent
+                        text: ":::"
+                        color: "white"
+                        font.bold: true
+                    }
+
+                    MouseArea {
+                        anchors.fill: parent
+                        cursorShape: Qt.SizeAllCursor
+                        onPressed: {
+                            window.startSystemMove();
+                        }
+                        onEntered: hideTimer.stop()
+                        onExited: hideTimer.start()
+                    }
+                }
+
                 MouseArea {
                     anchors.fill: parent
+                    anchors.topMargin: 20
                     hoverEnabled: true
                     onEntered: hideTimer.stop()
                     onExited: hideTimer.start()
@@ -123,7 +151,9 @@ ApplicationWindow {
 
                 Row {
                     id: controlsRow
-                    anchors.centerIn: parent
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    anchors.bottom: parent.bottom
+                    anchors.bottomMargin: 5
                     spacing: 5
 
                     Button {
@@ -145,97 +175,33 @@ ApplicationWindow {
                 }
             }
 
-            // Crab Body (Fixed at rest position)
+            // Body Container
             Item {
-                x: model.restX - 50
-                y: model.restY
-                width: 100
-                height: 60
+                property int w: bobbleType === "ferris" ? 150 : 100
+                property int h: bobbleType === "ferris" ? 90 : 60
+                x: model.restX - w/2
+                y: model.restY - h/2
+                width: w
+                height: h
+
+                MouseArea {
+                    anchors.fill: parent
+                    cursorShape: Qt.SizeAllCursor
+                    onPressed: {
+                        window.startSystemMove();
+                    }
+                }
 
                 // Ferris Body
                 Item {
                     visible: bobbleType === "ferris"
                     anchors.fill: parent
 
-                    // Legs
-                    Repeater {
-                        model: 6 // 3 legs per side
-                        delegate: Rectangle {
-                            x: index < 3 ? -10 : parent.width - 10
-                            y: 20 + (index % 3) * 10
-                            width: 30
-                            height: 8
-                            color: "#FF6B6B" // Crab red
-                            rotation: index < 3 ? -20 : 20
-                            radius: 4
-                        }
-                    }
-
-                    // Main Shell
-                    Rectangle {
+                    Image {
                         anchors.fill: parent
-                        color: "#FF6B6B"
-                        radius: 30
-                        border.color: "#cc0000"
-                        border.width: 2
-                    }
-                    
-                    // Eyes (Now fixed on body)
-                    Item {
-                        anchors.horizontalCenter: parent.horizontalCenter
-                        y: -20
-                        width: parent.width * 0.6
-                        height: 30
-
-                        // Eye stalks
-                        Rectangle {
-                            x: parent.width * 0.2
-                            y: 10
-                            width: 5
-                            height: 20
-                            color: "#FF6B6B"
-                        }
-                        Rectangle {
-                            x: parent.width * 0.8
-                            y: 10
-                            width: 5
-                            height: 20
-                            color: "#FF6B6B"
-                        }
-
-                        // Eyes
-                        Rectangle {
-                            x: parent.width * 0.15
-                            y: 0
-                            width: 15
-                            height: 15
-                            radius: 7.5
-                            color: "white"
-                            border.color: "black"
-                            Rectangle {
-                                anchors.centerIn: parent
-                                width: 5
-                                height: 5
-                                radius: 2.5
-                                color: "black"
-                            }
-                        }
-                        Rectangle {
-                            x: parent.width * 0.75
-                            y: 0
-                            width: 15
-                            height: 15
-                            radius: 7.5
-                            color: "white"
-                            border.color: "black"
-                            Rectangle {
-                                anchors.centerIn: parent
-                                width: 5
-                                height: 5
-                                radius: 2.5
-                                color: "black"
-                            }
-                        }
+                        source: "qrc:/images/rustacean-body.svg"
+                        fillMode: Image.PreserveAspectFit
+                        smooth: true
                     }
                 }
 
@@ -291,40 +257,25 @@ ApplicationWindow {
             // Claws (Movable part - Bobbling)
             Item {
                 id: clawsContainer
-                x: model.x - 50 // Center relative to physics model x
-                y: model.y - 30 // Center relative to physics model y
-                width: 100
-                height: 60
-                z: 2
+                property int w: bobbleType === "ferris" ? 150 : 100
+                property int h: bobbleType === "ferris" ? 90 : 60
+                x: model.x - w/2 // Center relative to physics model x
+                y: model.y - h/2 // Center relative to physics model y
+                width: w
+                height: h
+                z: bobbleType === "ferris" ? -1 : 2
                 rotation: model.rotation * 50 
 
                 // Ferris Claws
                 Item {
                     visible: bobbleType === "ferris"
                     anchors.fill: parent
-                    // Left Claw
-                    Rectangle { 
-                        x: -25
-                        y: -20
-                        width: 40
-                        height: 30
-                        radius: 15
-                        color: "#FF6B6B"
-                        border.color: "#cc0000"
-                        border.width: 2
-                        rotation: -30
-                    }
-                    // Right Claw
-                    Rectangle { 
-                        x: parent.width - 15
-                        y: -20
-                        width: 40
-                        height: 30
-                        radius: 15
-                        color: "#FF6B6B"
-                        border.color: "#cc0000"
-                        border.width: 2
-                        rotation: 30
+                    
+                    Image {
+                        anchors.fill: parent
+                        source: "qrc:/images/rustacean-claws.svg"
+                        fillMode: Image.PreserveAspectFit
+                        smooth: true
                     }
                 }
 
