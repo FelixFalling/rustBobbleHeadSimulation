@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Uploaded to: SVG Repo, www.svgrepo.com, Generator: SVG Repo Mixer Tools -->
+
+<svg
+   width="800px"
+   height="800px"
+   viewBox="0 0 24 24"
+   data-name="Layer 1"
+   id="Layer_1"
+   version="1.1"
+   sodipodi:docname="kitty-body.svg"
+   inkscape:version="1.4.2 (ebf0e940d0, 2025-05-08)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs8" />
+  <sodipodi:namedview
+     id="namedview8"
+     pagecolor="#505050"
+     bordercolor="#eeeeee"
+     borderopacity="1"
+     inkscape:showpageshadow="0"
+     inkscape:pageopacity="0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#505050"
+     inkscape:zoom="0.60875"
+     inkscape:cx="-147.84394"
+     inkscape:cy="81.314168"
+     inkscape:window-width="2304"
+     inkscape:window-height="1227"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="Layer_1" />
+  <title
+     id="title1" />
+  <path
+     d="M 5.7481177,11.940451 H 3.1074607 V 1.3778234 A 1.3203286,1.3203286 0 0 1 4.4277893,0.05749492 v 0 A 1.3203286,1.3203286 0 0 1 5.7481177,1.3778234 Z"
+     style="fill:#4b5661;stroke-width:1.32033"
+     id="path3" />
+  <path
+     d="m 5.0879536,23.823408 v 0 A 1.9804929,1.9804929 0 0 1 3.1074607,21.842915 v -9.902464 h 3.9609857 v 9.902464 a 1.9804929,1.9804929 0 0 1 -1.9804928,1.980493 z"
+     style="fill:#4b5661;stroke-width:1.32033"
+     id="path4" />
+  <path
+     d="m 18.291238,23.823408 v 0 a 1.9804929,1.9804929 0 0 1 -1.980493,-1.980493 v -9.902464 h 3.960986 v 9.902464 a 1.9804929,1.9804929 0 0 1 -1.980493,1.980493 z"
+     style="fill:#4b5661;stroke-width:1.32033"
+     id="path5" />
+  <path
+     d="m 20.271731,19.862422 c -3.960986,-5.281315 -13.2032846,-5.281315 -17.1642703,0 v -9.242299 c 3.9609857,-5.281314 13.2032843,-5.281314 17.1642703,0 z"
+     style="fill:#4b5661;stroke-width:1.32033"
+     id="path6" />
+</svg>

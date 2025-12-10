@@ -2,5 +2,7 @@
     <qresource prefix="/">
         <file>images/rustacean-body.svg</file>
         <file>images/rustacean-claws.svg</file>
+        <file>images/kitty-body.svg</file>
+        <file>images/kitty-head.svg</file>
     </qresource>
 </RCC>

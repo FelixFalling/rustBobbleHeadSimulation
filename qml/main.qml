@@ -177,8 +177,8 @@ ApplicationWindow {
 
             // Body Container
             Item {
-                property int w: bobbleType === "ferris" ? 150 : 100
-                property int h: bobbleType === "ferris" ? 90 : 60
+                property int w: bobbleType === "ferris" ? 150 : (bobbleType === "cat" ? 100 : 100)
+                property int h: bobbleType === "ferris" ? 90 : (bobbleType === "cat" ? 100 : 60)
                 x: model.restX - w/2
                 y: model.restY - h/2
                 width: w
@@ -209,24 +209,11 @@ ApplicationWindow {
                 Item {
                     visible: bobbleType === "cat"
                     anchors.fill: parent
-                    Rectangle {
-                        anchors.centerIn: parent
-                        width: 80
-                        height: 60
-                        color: "#FFA500"
-                        radius: 30
-                        border.color: "#CC8400"
-                        border.width: 2
-                    }
-                    // Tail
-                    Rectangle {
-                        x: 70
-                        y: 20
-                        width: 40
-                        height: 10
-                        color: "#FFA500"
-                        radius: 5
-                        rotation: -20
+                    Image {
+                        anchors.fill: parent
+                        source: "qrc:/images/kitty-body.svg"
+                        fillMode: Image.PreserveAspectFit
+                        smooth: true
                     }
                 }
 
@@ -257,8 +244,8 @@ ApplicationWindow {
             // Claws (Movable part - Bobbling)
             Item {
                 id: clawsContainer
-                property int w: bobbleType === "ferris" ? 150 : 100
-                property int h: bobbleType === "ferris" ? 90 : 60
+                property int w: bobbleType === "ferris" ? 150 : (bobbleType === "cat" ? 100 : 100)
+                property int h: bobbleType === "ferris" ? 90 : (bobbleType === "cat" ? 100 : 60)
                 x: model.x - w/2 // Center relative to physics model x
                 y: model.y - h/2 // Center relative to physics model y
                 width: w
@@ -282,29 +269,19 @@ ApplicationWindow {
                 // Cat Head
                 Item {
                     visible: bobbleType === "cat"
-                    anchors.centerIn: parent
-                    width: 60
-                    height: 60
+                    anchors.fill: parent
                     
-                    // Ears
-                    Rectangle { x: 0; y: 0; width: 20; height: 20; color: "#FFA500"; rotation: -15 }
-                    Rectangle { x: 40; y: 0; width: 20; height: 20; color: "#FFA500"; rotation: 15 }
-                    
-                    // Face
-                    Rectangle {
-                        anchors.fill: parent
-                        radius: 30
-                        color: "#FFA500"
-                        border.color: "#CC8400"
-                        border.width: 2
+                    Image {
+                        width: parent.width
+                        height: parent.height
+                        anchors.centerIn: parent
+                        source: "qrc:/images/kitty-head.svg"
+                        fillMode: Image.PreserveAspectFit
+                        smooth: true
+                        // Offset slightly to the right and up
+                        anchors.horizontalCenterOffset: 35
+                        anchors.verticalCenterOffset: -15
                     }
-                    
-                    // Eyes
-                    Rectangle { x: 15; y: 20; width: 8; height: 8; radius: 4; color: "black" }
-                    Rectangle { x: 37; y: 20; width: 8; height: 8; radius: 4; color: "black" }
-                    
-                    // Nose
-                    Rectangle { x: 27; y: 35; width: 6; height: 4; radius: 2; color: "pink" }
                 }
 
                 // Player Head

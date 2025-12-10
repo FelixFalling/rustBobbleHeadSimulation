@@ -65,6 +65,9 @@ impl BobbleHead {
         let displacement_x = self.x - self.rest_x;
         self.rotation_velocity -= displacement_x * 0.005;
 
+        // Apply restoring torque to return rotation to 0 (upright)
+        self.rotation_velocity += (0.0 - self.rotation) * 0.05;
+
         self.rotation += self.rotation_velocity * delta_time * 60.0;
 
         // Platform collision (simple hardcoded floor for now, matching QML default roughly)
