@@ -21,10 +21,11 @@ pub struct BobbleHead {
     pub rotation_velocity: f64,
     pub head_radius: f64,
     pub color: String,
+    pub bobble_type: String,
 }
 
 impl BobbleHead {
-    pub fn new(x: f64, y: f64, radius: f64, color: &str) -> Self {
+    pub fn new(x: f64, y: f64, radius: f64, color: &str, bobble_type: &str) -> Self {
         Self {
             rest_x: x,
             rest_y: y,
@@ -36,6 +37,7 @@ impl BobbleHead {
             rotation_velocity: 0.0,
             head_radius: radius,
             color: color.to_string(),
+            bobble_type: bobble_type.to_string(),
         }
     }
 
@@ -116,6 +118,7 @@ mod qobject {
         Rotation,
         HeadRadius,
         Color,
+        BobbleType,
     }
 
     unsafe extern "RustQt" {
@@ -142,6 +145,7 @@ mod qobject {
             y: f64,
             radius: f64,
             color: &QString,
+            bobble_type: &QString,
         );
 
         #[qinvokable]
@@ -152,6 +156,9 @@ mod qobject {
 
         #[qinvokable]
         fn update_physics(self: Pin<&mut BobbleHeadModel>, delta_time: f64);
+
+        #[qinvokable]
+        fn clear_bobble_heads(self: Pin<&mut BobbleHeadModel>);
 
         #[inherit]
         #[rust_name = "begin_insert_rows"]
@@ -165,6 +172,14 @@ mod qobject {
         #[inherit]
         #[rust_name = "end_insert_rows"]
         fn endInsertRows(self: Pin<&mut BobbleHeadModel>);
+
+        #[inherit]
+        #[rust_name = "begin_reset_model"]
+        fn beginResetModel(self: Pin<&mut BobbleHeadModel>);
+
+        #[inherit]
+        #[rust_name = "end_reset_model"]
+        fn endResetModel(self: Pin<&mut BobbleHeadModel>);
 
         #[inherit]
         #[rust_name = "create_index"]
@@ -232,6 +247,9 @@ impl BobbleHeadModel {
                 BobbleRoles::Color => {
                     return QVariant::from(&QString::from(&bobble_head.color));
                 }
+                BobbleRoles::BobbleType => {
+                    return QVariant::from(&QString::from(&bobble_head.bobble_type));
+                }
                 _ => {}
             }
         }
@@ -262,10 +280,14 @@ impl BobbleHeadModel {
             BobbleRoles::Color.repr,
             cxx_qt_lib::QByteArray::from("color"),
         );
+        roles.insert(
+            BobbleRoles::BobbleType.repr,
+            cxx_qt_lib::QByteArray::from("bobbleType"),
+        );
         roles
     }
 
-    fn add_bobble_head(mut self: Pin<&mut Self>, x: f64, y: f64, radius: f64, color: &QString) {
+    fn add_bobble_head(mut self: Pin<&mut Self>, x: f64, y: f64, radius: f64, color: &QString, bobble_type: &QString) {
         let row = self.bobble_heads.len();
         self.as_mut()
             .begin_insert_rows(&QModelIndex::default(), row as i32, row as i32);
@@ -275,6 +297,7 @@ impl BobbleHeadModel {
             y,
             radius,
             &color.to_string(),
+            &bobble_type.to_string(),
         ));
 
         self.as_mut().end_insert_rows();
@@ -325,6 +348,10 @@ impl BobbleHeadModel {
             self.as_mut().rust_mut().last_update = now;
         }
     }
-}
 
-// TodoList code removed
+    fn clear_bobble_heads(mut self: Pin<&mut Self>) {
+        self.as_mut().begin_reset_model();
+        self.as_mut().rust_mut().bobble_heads.clear();
+        self.as_mut().end_reset_model();
+    }
+}
