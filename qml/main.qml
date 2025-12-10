@@ -6,8 +6,8 @@ import com.kdab.todo 1.0
 
 ApplicationWindow {
     id: window
-    width: 400
-    height: 400
+    width: 600
+    height: 600
     visible: true
     flags: Qt.FramelessWindowHint | Qt.Window
     color: "transparent"
@@ -17,7 +17,7 @@ ApplicationWindow {
     Rectangle {
         id: startupMenu
         anchors.fill: parent
-        color: "#cc000000" // Semi-transparent background
+        color: "transparent"
         z: 200
         visible: true
 
