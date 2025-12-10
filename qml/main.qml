@@ -277,6 +277,8 @@ ApplicationWindow {
                 Item {
                     visible: bobbleType === "player"
                     anchors.fill: parent
+
+                    //Make head slightly larger
                     scale: 1.5
                     
                     Image {

@@ -1,7 +1,7 @@
 use std::pin::Pin;
 use std::time::{SystemTime, UNIX_EPOCH};
 
-use cxx_qt_lib::QString;
+use cxx_qt_lib::{QString, QGuiApplication, QQmlApplicationEngine, QUrl};
 use qobject::BobbleRoles;
 
 // Physics constants
@@ -338,9 +338,6 @@ impl BobbleHeadModel {
             let head = &mut self.as_mut().rust_mut().bobble_heads[index as usize];
             head.rest_x = x;
             head.rest_y = y;
-
-            // Adjust current position to avoid sudden jumps
-            let dx = head.x - head.rest_x; 
             
             let model_index = self.as_ref().create_index(index, 0);
             let roles = QVector_i32::default();
@@ -375,5 +372,17 @@ impl BobbleHeadModel {
         self.as_mut().begin_reset_model();
         self.as_mut().rust_mut().bobble_heads.clear();
         self.as_mut().end_reset_model();
+    }
+}
+pub fn run() {
+    let mut app = QGuiApplication::new();
+    let mut engine = QQmlApplicationEngine::new();
+
+    if let Some(engine) = engine.as_mut() {
+        engine.load(&QUrl::from("qrc:/qt/qml/com/kdab/todo/qml/main.qml"));
+    }
+
+    if let Some(app) = app.as_mut() {
+        app.exec();
     }
 }

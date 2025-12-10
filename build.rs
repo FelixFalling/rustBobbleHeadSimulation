@@ -3,7 +3,7 @@ fn main() {
     CxxQtBuilder::new()
         .qml_module(QmlModule {
             uri: "com.kdab.todo",
-            rust_files: &["src/bobbling.rs"],
+            rust_files: &["src/lib.rs"],
             qml_files: &["qml/main.qml"],
             ..Default::default()
         })

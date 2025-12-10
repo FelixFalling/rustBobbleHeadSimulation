@@ -3,6 +3,14 @@ name = "rustBobbleHeadSimulation"
 version = "0.1.0"
 edition = "2021"
 
+[lib]
+name = "rustBobbleHeadSimulation"
+path = "src/lib.rs"
+
+[[bin]]
+name = "rustBobbleHeadSimulation"
+path = "src/main.rs"
+
 [dependencies]
 cxx = "1.0"
 cxx-qt = "0.7"

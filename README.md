@@ -3,7 +3,14 @@ Nick Phua 2025
 
 Rust based desktop simulation of 3 different types of bobble heads.
 
-## Features
+## Description of the Project
+This project is just a simple desktop application that runs a bobble head simulation with 
+the back end in Rust and the front end in QML. 
+The bobble head simulation uses a spring-damper physics, like I've learned in my physics class.
+
+![Ferris the Rustacean](/images/rust_crab.gif) ![Cat Bobble Head](/images/cat.gif) ![Baseball Player Bobble Head](/images/baseball.gif)
+
+### Features
 - **Three Unique Bobble Heads**:
   - **Ferris the Rustacean**: The beloved Rust mascot.
   - **Cat**: A cute orange tabby.
@@ -20,15 +27,16 @@ Rust based desktop simulation of 3 different types of bobble heads.
 1.  **Rust**: [Install Rust](https://www.rust-lang.org/tools/install)
 2.  **Qt**: You need Qt installed (Qt 5.15+ or Qt 6).
     - On Ubuntu/Debian: `sudo apt install qt6-base-dev qt6-declarative-dev libqt6svg6-dev` 
-    - On macOS: `brew install qt`
     - On Windows: Install via the Qt Online Installer.
 
 ## Build and Run
 
-1.  **Build and Run**:
+1.  **Build and Run from Source**:
     ```bash
+    #If you have the prerequisites installed, as above then run: 
     cargo run
     ```
+
 
 ## Processes
 
