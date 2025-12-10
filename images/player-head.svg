@@ -1,0 +1,16 @@
+<svg width="60" height="60" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg">
+  <!-- Head -->
+  <circle cx="30" cy="35" r="20" fill="#FFCCAA" stroke="#D4A080" stroke-width="1"/>
+  <!-- Cap -->
+  <path d="M 10 25 Q 30 5 50 25 L 50 20 Q 30 0 10 20 Z" fill="#4169E1"/>
+  <rect x="10" y="20" width="40" height="10" rx="2" fill="#4169E1"/>
+  <path d="M 10 25 L 5 25 Q 5 28 10 28 Z" fill="#4169E1"/> <!-- Brim side -->
+  <path d="M 50 25 L 55 25 Q 55 28 50 28 Z" fill="#4169E1"/> <!-- Brim side -->
+  <rect x="5" y="25" width="50" height="3" fill="#4169E1"/> <!-- Brim front -->
+  
+  <!-- Eyes -->
+  <circle cx="22" cy="35" r="3" fill="black"/>
+  <circle cx="38" cy="35" r="3" fill="black"/>
+  <!-- Smile -->
+  <path d="M 25 45 Q 30 48 35 45" stroke="black" stroke-width="1" fill="none"/>
+</svg>

@@ -221,22 +221,11 @@ ApplicationWindow {
                 Item {
                     visible: bobbleType === "player"
                     anchors.fill: parent
-                    Rectangle {
-                        anchors.centerIn: parent
-                        width: 80
-                        height: 60
-                        color: "#4169E1" // Royal Blue Jersey
-                        radius: 20
-                        border.color: "#000080"
-                        border.width: 2
-                    }
-                    // Number
-                    Text {
-                        anchors.centerIn: parent
-                        text: "10"
-                        color: "white"
-                        font.bold: true
-                        font.pixelSize: 24
+                    Image {
+                        anchors.fill: parent
+                        source: "qrc:/images/baseball-player-body.svg"
+                        fillMode: Image.PreserveAspectFit
+                        smooth: true
                     }
                 }
             }
@@ -287,40 +276,20 @@ ApplicationWindow {
                 // Player Head
                 Item {
                     visible: bobbleType === "player"
-                    anchors.centerIn: parent
-                    width: 50
-                    height: 50
+                    anchors.fill: parent
+                    scale: 1.5
                     
-                    // Head
-                    Rectangle {
-                        anchors.fill: parent
-                        radius: 25
-                        color: "#FFCCAA" // Skin tone
-                        border.color: "#D4A080"
-                        border.width: 1
+                    Image {
+                        width: parent.width
+                        height: parent.height
+                        anchors.centerIn: parent
+                        source: "qrc:/images/baseball-player-head.svg"
+                        fillMode: Image.PreserveAspectFit
+                        smooth: true
+                        // Center horizontal, slightly above body
+                        anchors.verticalCenterOffset: -40
+                        anchors.horizontalCenterOffset: -2
                     }
-                    
-                    // Cap
-                    Rectangle {
-                        x: -5
-                        y: -5
-                        width: 60
-                        height: 20
-                        radius: 5
-                        color: "#4169E1"
-                    }
-                    Rectangle {
-                        x: 0
-                        y: -10
-                        width: 50
-                        height: 25
-                        radius: 25
-                        color: "#4169E1"
-                    }
-                    
-                    // Eyes
-                    Rectangle { x: 12; y: 20; width: 6; height: 6; radius: 3; color: "black" }
-                    Rectangle { x: 32; y: 20; width: 6; height: 6; radius: 3; color: "black" }
                 }
 
                 // Drag handler

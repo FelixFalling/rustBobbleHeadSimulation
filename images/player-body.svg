@@ -1,0 +1,9 @@
+<svg width="100" height="60" viewBox="0 0 100 60" xmlns="http://www.w3.org/2000/svg">
+  <!-- Jersey Body -->
+  <rect x="20" y="0" width="60" height="60" rx="10" fill="#4169E1" stroke="#000080" stroke-width="2"/>
+  <!-- Sleeves -->
+  <path d="M 20 5 L 5 20 L 15 30 L 25 15 Z" fill="white" stroke="#000080" stroke-width="2"/>
+  <path d="M 80 5 L 95 20 L 85 30 L 75 15 Z" fill="white" stroke="#000080" stroke-width="2"/>
+  <!-- Number -->
+  <text x="50" y="40" font-family="Arial" font-size="24" font-weight="bold" fill="white" text-anchor="middle">10</text>
+</svg>
