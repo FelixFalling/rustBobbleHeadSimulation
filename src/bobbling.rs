@@ -338,17 +338,9 @@ impl BobbleHeadModel {
             let head = &mut self.as_mut().rust_mut().bobble_heads[index as usize];
             head.rest_x = x;
             head.rest_y = y;
-            // Also update current position to prevent extreme springing when dragging the base
-            // But maybe we want some springing? Let's keep it simple and move both for "placing"
-            // actually, if I drag the base, the head should probably follow.
-            // If I don't update x/y, the head will stay put and the spring will stretch.
-            // Let's update x/y partially or fully to make it feel like we are moving the whole object.
-            // If I update x/y to be relative to the new rest position as they were to the old rest position?
-            // dx = x - old_rest_x
-            // new_x = new_rest_x + dx
-            let dx = head.x - head.rest_x; // Wait, head.rest_x is already updated? No, I just updated it.
-            // I need the old rest_x.
-            // Let's just update rest_x/y. The user can enjoy the physics.
+
+            // Adjust current position to avoid sudden jumps
+            let dx = head.x - head.rest_x; 
             
             let model_index = self.as_ref().create_index(index, 0);
             let roles = QVector_i32::default();

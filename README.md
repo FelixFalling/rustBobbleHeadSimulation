@@ -3,7 +3,10 @@ Rust desktop simulation of bobble heads for desktop.
 
 # Processes
 I first watch this video and followed along how to even get started with running QML with Rust.
-[QML with Rust Tutorial Link](https://www.youtube.com/watch?v=uR4RzDjctm4&t=2703s)
+- [QML with Rust Tutorial Link](https://www.youtube.com/watch?v=uR4RzDjctm4)
+
+This video from KDAB introduce me on how to expose QML object to Rust variables, It seems
+to work as thin wrapper for C++ types to then be converted into Rust types.
 
 # Sources
 

@@ -2,8 +2,8 @@ mod bobbling;
 
 use cxx_qt_lib::{QGuiApplication, QQmlApplicationEngine, QUrl};
 
+// This main function was initially taken from https://www.youtube.com/watch?v=uR4RzDjctm4
 fn main() {
-    //Making new table??
     let mut app = QGuiApplication::new();
     let mut engine = QQmlApplicationEngine::new();
 
