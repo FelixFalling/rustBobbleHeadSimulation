@@ -9,22 +9,42 @@ const SPRING_CONSTANT: f64 = 0.3;
 const DAMPING: f64 = 0.92;
 const GRAVITY: f64 = 0.2;
 
+/// Represents a single bobble head entity with physics properties.
 #[derive(Clone, Debug)]
 pub struct BobbleHead {
+    /// The resting X position (anchor point).
     pub rest_x: f64,
+    /// The resting Y position (anchor point).
     pub rest_y: f64,
+    /// Current X position.
     pub x: f64,
+    /// Current Y position.
     pub y: f64,
+    /// Velocity in X direction.
     pub velocity_x: f64,
+    /// Velocity in Y direction.
     pub velocity_y: f64,
+    /// Current rotation angle.
     pub rotation: f64,
+    /// Angular velocity.
     pub rotation_velocity: f64,
+    /// Radius of the head (for collision/rendering).
     pub head_radius: f64,
+    /// Color of the bobble head (hex string).
     pub color: String,
+    /// Type of bobble head ("ferris", "cat", "player").
     pub bobble_type: String,
 }
 
 impl BobbleHead {
+    /// Creates a new BobbleHead instance.
+    ///
+    /// # Arguments
+    /// * `x` - Initial X position.
+    /// * `y` - Initial Y position.
+    /// * `radius` - Radius of the head.
+    /// * `color` - Color string.
+    /// * `bobble_type` - Type identifier.
     pub fn new(x: f64, y: f64, radius: f64, color: &str, bobble_type: &str) -> Self {
         Self {
             rest_x: x,
@@ -41,6 +61,12 @@ impl BobbleHead {
         }
     }
 
+    /// Updates the physics state of the bobble head.
+    ///
+    /// Applies gravity, spring forces, damping, and collision detection.
+    ///
+    /// # Arguments
+    /// * `delta_time` - Time elapsed since last update in seconds.
     pub fn update(&mut self, delta_time: f64) {
         // Apply gravity
         self.velocity_y += GRAVITY;
@@ -79,6 +105,11 @@ impl BobbleHead {
         }
     }
 
+    /// Applies an external force to the bobble head.
+    ///
+    /// # Arguments
+    /// * `force_x` - Force component in X direction.
+    /// * `force_y` - Force component in Y direction.
     pub fn apply_force(&mut self, force_x: f64, force_y: f64) {
         self.velocity_x += force_x * 0.5;
         self.velocity_y += force_y * 0.5;
@@ -207,6 +238,8 @@ mod qobject {
     }
 }
 
+/// Rust implementation of the BobbleHeadModel.
+/// Stores the list of bobble heads and manages the update loop.
 pub struct BobbleHeadModelRust {
     bobble_heads: Vec<BobbleHead>,
     last_update: u64,
@@ -386,6 +419,11 @@ impl BobbleHeadModel {
         self.as_mut().end_reset_model();
     }
 }
+
+/// Initializes and runs the QML application.
+///
+/// This function sets up the QGuiApplication and QQmlApplicationEngine,
+/// loads the main QML file, and starts the event loop.
 pub fn run() {
     let mut app = QGuiApplication::new();
     let mut engine = QQmlApplicationEngine::new();
