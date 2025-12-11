@@ -14,6 +14,7 @@ ApplicationWindow {
 
     property alias menu: startupMenu
 
+    // Menu
     Rectangle {
         id: startupMenu
         anchors.fill: parent
