@@ -1,0 +1,26 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "lldb",
+            "request": "launch",
+            "name": "Debug executable 'rust_bobble_head_simulation'",
+            "cargo": {
+                "args": [
+                    "build",
+                    "--bin=rust_bobble_head_simulation",
+                    "--package=rust_bobble_head_simulation"
+                ],
+                "filter": {
+                    "name": "rust_bobble_head_simulation",
+                    "kind": "bin"
+                }
+            },
+            "args": [],
+            "cwd": "${workspaceFolder}",
+            "env": {
+                "PATH": "C:\\Qt\\6.9.2\\msvc2022_64\\bin;${env:PATH}"
+            }
+        }
+    ]
+}

@@ -31,9 +31,34 @@ The bobble head simulation uses a spring-damper physics, like I've learned in my
 
 ## Build and Run
 
+### Windows Setup
+
+This project is configured to work with Qt 6.9.2 installed at `C:\Qt\6.9.2\msvc2022_64`.
+
+**Option 1: VS Code (Recommended)**
+1.  Open the project in VS Code.
+2.  Press **F5** to build and run. The project is configured to automatically set the necessary environment variables.
+
+**Option 2: Terminal**
+1.  Run the setup script to configure your environment:
+    ```cmd
+    setup_env.bat
+    ```
+2.  Run the project:
+    ```bash
+    cargo run
+    ```
+
+**Note:** If your Qt installation is in a different location, please update the paths in:
+- `.cargo/config.toml`
+- `.vscode/launch.json`
+- `setup_env.bat`
+
+### Linux / macOS
+
 1.  **Build and Run from Source**:
     ```bash
-    #If you have the prerequisites installed, as above then run: 
+    # If you have the prerequisites installed, as above then run: 
     cargo run
     ```
 
