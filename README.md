@@ -23,10 +23,11 @@ The bobble head simulation uses a spring-damper physics, like I've learned in my
   - Menu system to switch between bobble heads.
 
 ## Prerequisites
+I recommend do the Linux route as it dosen't require you to install of qml stuff to build the program, and is generally more annoying to get setup.
 
 1.  **Rust**: [Install Rust](https://www.rust-lang.org/tools/install)
 2.  **Qt**: You need Qt installed (Qt 5.15+ or Qt 6).
-    - On Ubuntu/Debian: `sudo apt install qt6-base-dev qt6-declarative-dev libqt6svg6-dev` 
+    - On Ubuntu/Debian(recommended): `sudo apt install qt6-base-dev qt6-declarative-dev libqt6svg6-dev` 
     - On Windows: Install via the Qt Online Installer.
 
 ## Build and Run
@@ -54,7 +55,7 @@ This project is configured to work with Qt 6.9.2 installed at `C:\Qt\6.9.2\msvc2
 - `.vscode/launch.json`
 - `setup_env.bat`
 
-### Linux / macOS
+### Linux 
 
 1.  **Build and Run from Source**:
     ```bash
