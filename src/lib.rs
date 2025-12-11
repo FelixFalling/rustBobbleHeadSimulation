@@ -7,7 +7,7 @@ use qobject::BobbleRoles;
 mod bobble;
 use bobble::BobbleHead;
 
-/// CXX-Qt bridge module by exposing the header files for the different Qt types used. 
+/// CXX-Qt bridge module by exposing the header files for the different Qt types used.
 /// This exposes the QML types to Rust and vice versa, this is needed to be able to
 //  use QML models in Rust.
 #[cxx_qt::bridge]

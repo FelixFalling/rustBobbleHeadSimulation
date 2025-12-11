@@ -1,6 +1,5 @@
 use cxx_qt_build::{CxxQtBuilder, QmlModule};
 fn main() {
-
     // This main function was initially taken from https://www.youtube.com/watch?v=uR4RzDjctm4
     CxxQtBuilder::new()
         .qml_module(QmlModule {

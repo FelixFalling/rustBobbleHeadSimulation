@@ -67,7 +67,15 @@ This project is configured to work with Qt 6.9.2 installed at `C:\Qt\6.9.2\msvc2
 ## Processes
 
 This video from KDAB introduce me on how to expose QML object to Rust variables, It seems
-to work as thin wrapper for C++ types to then be converted into Rust types.
+to work as thin wrapper for C++ types to then be converted into Rust types. Then I looked up
+different SVG images online that are free to use and modified them to be used in this project.
+I've attached the sources to where I got the svg images in the sources section below. Next, I implemented the very basic QML ui to work the menu and set up the window and the qml to take in the svg images. I used Inkscape to modify the svg images to separate the head and body parts. I then attached 
+these qml variables to a C++ type using cxx-qt and then exposed that to Rust. Which required a lot 
+of boilerplate code to get functional in transferring the types from QML to C++ to Rust. 
+
+As it the qml bindings are for Rust its currently unofficial and it feels like a hacky workaround to get things working. So I honestly wouldn't recommend using this for any serious projects.
+However, the QT Group is working on official Rust bindings for QT, so in the future I imagine it 
+will be a much better process to do this.
 
 
 # Acknowledgements 
