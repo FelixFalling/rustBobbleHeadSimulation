@@ -1,14 +1,14 @@
 [package]
-name = "rustBobbleHeadSimulation"
+name = "rust_bobble_head_simulation"
 version = "0.1.0"
 edition = "2021"
 
 [lib]
-name = "rustBobbleHeadSimulation"
+name = "rust_bobble_head_simulation"
 path = "src/lib.rs"
 
 [[bin]]
-name = "rustBobbleHeadSimulation"
+name = "rust_bobble_head_simulation"
 path = "src/main.rs"
 
 [dependencies]

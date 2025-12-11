@@ -1,7 +1,7 @@
 use std::pin::Pin;
 use std::time::{SystemTime, UNIX_EPOCH};
 
-use cxx_qt_lib::{QString, QGuiApplication, QQmlApplicationEngine, QUrl};
+use cxx_qt_lib::{QGuiApplication, QQmlApplicationEngine, QString, QUrl};
 use qobject::BobbleRoles;
 
 // Physics constants
@@ -158,7 +158,12 @@ mod qobject {
         fn set_bobble_head_position(self: Pin<&mut BobbleHeadModel>, index: i32, x: f64, y: f64);
 
         #[qinvokable]
-        fn set_bobble_head_rest_position(self: Pin<&mut BobbleHeadModel>, index: i32, x: f64, y: f64);
+        fn set_bobble_head_rest_position(
+            self: Pin<&mut BobbleHeadModel>,
+            index: i32,
+            x: f64,
+            y: f64,
+        );
 
         #[qinvokable]
         fn update_physics(self: Pin<&mut BobbleHeadModel>, delta_time: f64);
@@ -293,7 +298,14 @@ impl BobbleHeadModel {
         roles
     }
 
-    fn add_bobble_head(mut self: Pin<&mut Self>, x: f64, y: f64, radius: f64, color: &QString, bobble_type: &QString) {
+    fn add_bobble_head(
+        mut self: Pin<&mut Self>,
+        x: f64,
+        y: f64,
+        radius: f64,
+        color: &QString,
+        bobble_type: &QString,
+    ) {
         let row = self.bobble_heads.len();
         self.as_mut()
             .begin_insert_rows(&QModelIndex::default(), row as i32, row as i32);
@@ -338,7 +350,7 @@ impl BobbleHeadModel {
             let head = &mut self.as_mut().rust_mut().bobble_heads[index as usize];
             head.rest_x = x;
             head.rest_y = y;
-            
+
             let model_index = self.as_ref().create_index(index, 0);
             let roles = QVector_i32::default();
             self.as_mut()
